@@ -1,0 +1,9 @@
+---
+- hosts: webserver
+  become: yes
+  roles:
+    - apache
+    - mysql
+    - docker
+    - container
+

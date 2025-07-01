@@ -1,0 +1,20 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles/container
+- name: Create directory for ephemeral storage
+  file:
+    path: /tmp/nginx-data
+    state: directory
+    mode: '0755'
+
+- name: Run NGINX container on port 8081 and mount ephemeral storage
+  docker_container:
+    name: nginx-container
+    image: nginx:latest
+    state: started
+    restart_policy: unless-stopped
+    ports:
+      - "8081:80"
+    volumes:
+      - /tmp/nginx-data:/usr/share/nginx/html
+
